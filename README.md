@@ -2,15 +2,19 @@
 
 A curated collection of modern CLI tools installer script that downloads and installs high-quality command-line utilities directly from GitHub releases into your user-local bin directory (`~/.local/bin`).
 
+The goal is to be able to quickly install popular modern tools without having to be root, either for a VM, a remote server
+or simply your newest machine
+
 ## What It Does
 
 This script automatically:
 
-- Downloads the latest releases of popular CLI tools from GitHub
+- Downloads the latest releases of popular CLI tools from GitHub, preferring the statically compiled MUSL release
+- Looks for a single binary in the release if possible
 - Installs them to `~/.local/bin` (or `$XDG_BIN_HOME` if set)
 - Adds the bin directory to your PATH in common shell rc files
 - Supports both x86_64 and aarch64/arm64 architectures
-- Handles various archive formats (tar.gz, tar.xz, zip, deb)
+- Handles various archive formats (tar.gz, tar.xz, zip, deb) in the releases
 
 ## Requirements
 
@@ -19,6 +23,16 @@ This script automatically:
 - `tar` for extracting archives
 - `unzip` for zip files (if needed)
 - `dpkg-deb` for .deb packages (if needed)
+
+## Limitations
+
+- Currently only tested and set up for my personal needs, mostly ubuntu based VMs/servers.
+
+## TODO
+
+- Add support for more diverse environments, such as Apple silicon. Now it is pretty hardcoded for linux.
+- More tools
+- More testing
 
 ## Available Tools
 
@@ -96,7 +110,7 @@ curl -fsSL https://raw.githubusercontent.com/vvollers/local_tools_installer/main
 wget -qO- https://raw.githubusercontent.com/vvollers/local_tools_installer/main/local_tools_installer.sh | bash -s -- jq fzf bat
 
 # Preview what would be installed
-curl -fsSL https://raw.githubusercontent.com/vvollers/local_tools_installer/main/local_tools_installer.sh | bash -s -- --dry-run
+curl -fsSL https://raw.githubusercontent.com/vvollers/local_tools_installer/main/local_tools_installer.sh | bash -s -- --dry-run jq fzf bat
 
 # Install with verbose output
 curl -fsSL https://raw.githubusercontent.com/vvollers/local_tools_installer/main/local_tools_installer.sh | bash -s -- -v jq fzf bat
